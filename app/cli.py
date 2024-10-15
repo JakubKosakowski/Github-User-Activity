@@ -1,6 +1,7 @@
 from typing import Optional, Dict, List, Any
 
 import typer
+from typing_extensions import Annotated
 
 from app import __app_name__, __version__, api, EVENTS, ERRORS
 
@@ -29,14 +30,18 @@ def user(
 
 @app.command()
 def events(
-    username: str = typer.Argument(...)
+    username: str,
+    event_filter: Annotated[str, typer.Argument()] = "",
 ) -> None:
     api_handler = get_api_handler()
-    data, error = api_handler.get_user_events(username)
+    data, error = api_handler.get_user_events(username, event_filter)
     if error:
         typer.secho(f'Searching user events failed with "{ERRORS[error]}"',
                     fg=typer.colors.RED)
         raise typer.Exit(1)
+    elif len(data) == 0:
+        typer.secho(f"There is no events with this type. Try another event name.\n",
+                    fg=typer.colors.RED)
     else:
         for event in data:
             info = f"""({event['created_at']}) #{event['id']} - """

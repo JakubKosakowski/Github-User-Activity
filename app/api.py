@@ -22,7 +22,7 @@ class APIHandler():
             headers['Authorization'] = f"Bearer {self.token}"
         return headers
     
-    def _fetch_url(self, url: str) -> APIResponse:
+    def _fetch_url(self, url: str, event_filter: str) -> APIResponse:
         try:
             response = requests.get(url, headers=self._get_headers())
             response.raise_for_status()
@@ -31,12 +31,15 @@ class APIHandler():
         except Timeout:
             return APIResponse([], TIMEOUT_ERROR)
         else:
-            return APIResponse(response.json(), SUCCESS)
+            if event_filter == '':
+                return APIResponse(response.json(), SUCCESS)
+            return APIResponse([event for event in response.json() if event['type'] == event_filter],
+                               SUCCESS)
 
     def get_user_info(self, username: str) -> APIResponse:
         url = f'{self.api_base_url}/users/{username}'
         return self._fetch_url(url)
         
-    def get_user_events(self, username: str) -> APIResponse:
+    def get_user_events(self, username: str, event_filter: str='') -> APIResponse:
         url = f'https://api.github.com/users/{username}/events'
-        return self._fetch_url(url)
+        return self._fetch_url(url, event_filter)
