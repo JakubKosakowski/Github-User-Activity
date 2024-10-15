@@ -14,8 +14,8 @@ ERRORS = {
 
 EVENTS = {
     'CommitCommentEvent': {'info': "Commit {} in {}", 'payload': 'action'},
-    'CreateEvent': {'info': 'Created {} event to {}', 'payload': 'ref'},
-    'DeleteEvent': {'info': 'Deleted {} event from {}', 'payload': 'ref'},
+    'CreateEvent': {'info': 'Created {} branch in {}', 'payload': 'ref'},
+    'DeleteEvent': {'info': 'Deleted {} branch from {}', 'payload': 'ref'},
     'ForkEvent': {'info': 'Created fork to repository {}', 'payload': 'forkee'},
     'GollumEvent': {'info': '{}{}', 'payload': 'pages'},
     'IssueCommentEvent': {'info': 'Issue comment was {} in {}', 'payload': 'action'},
