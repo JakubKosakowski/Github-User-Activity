@@ -33,13 +33,19 @@ def events(
 ) -> None:
     api_handler = get_api_handler()
     data, error = api_handler.get_user_events(username)
-    for event in data:
-        info = f"""({event['created_at']}) #{event['id']} - """
-        event_info = EVENTS[event['type']]
-        if event['type'] == 'PushEvent':
-            event_info = event_info.replace('{AoC}', str(event['payload']['size'])).replace('{repo_name}', event['repo']['name'])
-        typer.secho(f"{info} {event_info}\n",
-                    fg=typer.colors.BLUE)
+    if error:
+        typer.secho(f'Searching user events failed with "{ERRORS[error]}"',
+                    fg=typer.colors.RED)
+        raise typer.Exit(1)
+    else:
+        for event in data:
+            info = f"""({event['created_at']}) #{event['id']} - """
+            event_info, event_payload = EVENTS[event['type']]['info'], EVENTS[event['type']]['payload']
+            if event['type'] in ['ReleaseEvent', 'PublicEvent']:
+                event_info = event_info.format(event['repo']['name'])    
+            event_info = event_info.format(str(event['payload'][event_payload]), event['repo']['name'])
+            typer.secho(f"{info} {event_info}\n",
+                        fg=typer.colors.BLUE)
 
 @app.callback()
 def main(

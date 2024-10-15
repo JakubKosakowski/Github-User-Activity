@@ -13,21 +13,21 @@ ERRORS = {
 }
 
 EVENTS = {
-    'CommitCommentEvent': '',
-    'CreateEvent': '',
-    'DeleteEvent': '',
-    'ForkEvent': '',
-    'GollumEvent': '',
-    'IssueCommentEvent': '',
-    'IssuesEvent': '',
-    'MemberEvent': '',
-    'PublicEvent': '',
-    'PullRequestEvent': '',
-    'PullRequestReviewEvent': '',
-    'PullRequestReviewCommentEvent': '',
-    'PullRequestReviewThreadEvent': '',
-    'PushEvent': "Pushed {AoC} commits to {repo_name}",
-    'ReleaseEvent': '',
-    'SponsorshipEvent': '',
-    'WatchEvent': ''
+    'CommitCommentEvent': {'info': "Commit {} in {}", 'payload': 'action'},
+    'CreateEvent': {'info': 'Created {} branch in {}', 'payload': 'ref'},
+    'DeleteEvent': {'info': 'Deleted {} branch from {}', 'payload': 'ref'},
+    'ForkEvent': {'info': 'Created fork to repository {}', 'payload': 'forkee'},
+    'GollumEvent': {'info': '{}{}', 'payload': 'pages'},
+    'IssueCommentEvent': {'info': 'Issue comment was {} in {}', 'payload': 'action'},
+    'IssuesEvent': {'info': 'Issue comment was {} in {}', 'payload': 'action'},
+    'MemberEvent': {'info': 'New member was added to {}', 'payload': 'action'},
+    'PublicEvent': {'info': 'Repository {} visibility was changed to "public"', 'payload': None},
+    'PullRequestEvent': {'info': 'Pull request {} in {}', 'payload': 'action'},
+    'PullRequestReviewEvent': {'info': 'Pull request review {} in {}', 'payload': 'action'},
+    'PullRequestReviewCommentEvent': {'info': 'Pull request review comment {} in {}', 'payload': 'action'},
+    'PullRequestReviewThreadEvent': {'info': 'Pull request review thread {} in {}', 'payload': 'action'},
+    'PushEvent': {"info": "Pushed {} commits to {}", 'payload': 'size'},
+    'ReleaseEvent': {'info': 'Repository {} was released', 'payload': 'action'},
+    'SponsorshipEvent': {'info': 'Sponsorship was {} in {}', 'payload': 'action'},
+    'WatchEvent': {'info': 'User {} star {}', 'payload': 'action'}
 }
