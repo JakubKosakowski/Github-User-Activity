@@ -37,7 +37,7 @@ def events(
         info = f"""({event['created_at']}) #{event['id']} - """
         event_info = EVENTS[event['type']]
         if event['type'] == 'PushEvent':
-            event_info = event_info.replace('{AoC}', str(event['payload']['size'])).replace('{repo_name}', event['repo']['name'])
+            event_info = event_info.format(str(event['payload']['size']), event['repo']['name'])
         typer.secho(f"{info} {event_info}\n",
                     fg=typer.colors.BLUE)
 

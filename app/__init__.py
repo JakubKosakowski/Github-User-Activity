@@ -26,7 +26,7 @@ EVENTS = {
     'PullRequestReviewEvent': '',
     'PullRequestReviewCommentEvent': '',
     'PullRequestReviewThreadEvent': '',
-    'PushEvent': "Pushed {AoC} commits to {repo_name}",
+    'PushEvent': "Pushed {} commits to {}",
     'ReleaseEvent': '',
     'SponsorshipEvent': '',
     'WatchEvent': ''
